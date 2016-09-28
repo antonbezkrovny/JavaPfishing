@@ -56,9 +56,9 @@ class Paged {
         env.put(Context.INITIAL_CONTEXT_FACTORY,
                 "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "CN=Bezkrovny Anton Aleksandrovich,OU=Users,OU=Letnikovskaya,OU=RU.MSK,OU=Offices,DC=office,DC=lamoda,DC=ru");
+        env.put(Context.SECURITY_PRINCIPAL, "CN=,OU=Users,DC=contoso,DC=com");
         env.put(Context.SECURITY_CREDENTIALS, "password");
-        env.put(Context.PROVIDER_URL, "ldap://office.lamoda.ru");
+        env.put(Context.PROVIDER_URL, "ldap://office.contoso.com");
         env.put(Context.REFERRAL, "follow");
 
 // We want to use a connection pool to
@@ -189,13 +189,13 @@ class Paged {
             //System.out.println(aBook);
             System.out.println(aBook.getEmail());
             //Recipient's email ID needs to be mentioned.
-            String to = "anton.bezkrovny@lamoda.ru";
+            String to = "pfishingadmin@contoso.com";
 
             // Sender's email ID needs to be mentioned
-            String from = "helpdesk@lamoda.ru <helpdesk@almoda92.ru>";
+            String from = "helpdesk@contoso.com <helpdesk@contoso92.com>";
 
             // Assuming you are sending email from localhost
-            String host = "10.10.47.47";
+            String host = "IP_SMTP_HOST";
 
             // Get system properties
             Properties properties = System.getProperties();
@@ -222,11 +222,11 @@ class Paged {
 
                 // Now set the actual message
                 String ruMessage = "Просьба произвести плановое изменение пароля для вашей учетной записи. В противном случае вы потеряете доступ к сети Lamoda. " +
-                        "Пользователи других систем (не Windows) могут изменить пароль, зайдя по ссылке <a href=http://pwd.almoda92.ru>https://pwd.lamoda.ru</a> " +
-                        "Если вы не можете самостоятельно поменять пароль, обратитесь на hd@lamoda.ru.";
+                        "Пользователи других систем (не Windows) могут изменить пароль, зайдя по ссылке <a href=http://pwd.contoso92.com>https://pwd.contoso.com</a> " +
+                        "Если вы не можете самостоятельно поменять пароль, обратитесь на hd@contoso.com.";
                 String engMessage ="<br><br>Hello. Please, change your password for you account," +
                         " because its expired. Otherwise you will lose your access to the network & services of Lamoda company. Users of not Windows systems (like Mac OS, " +
-                        "*nix, and other) go to url <a href=http://pwd.almoda92.ru>https://pwd.lamoda.ru</a> If you are unable to change your password, please contact hd@lamoda.ru";
+                        "*nix, and other) go to url <a href=http://pwd.contoso92.com>https://pwd.contoso.com</a> If you are unable to change your password, please contact hd@contoso.com";
                 //byte ptext[] = ruMessage.getBytes(UTF_16);
                 //String formattedMessage = new String(ptext, UTF_8);
                 //System.out.println(ruMessage);
@@ -248,13 +248,13 @@ class Paged {
         for (Fishing aBook : reportItem) {
             msgToAdmin+=aBook.toString() + "\n<br>";
         }
-        String to = "anton.mitin@lamoda.ru";
+        String to = "admin_1@contoso.com";
 
         // Sender's email ID needs to be mentioned
         String from = "Fishing";
 
         // Assuming you are sending email from localhost
-        String host = "10.10.47.47";
+        String host = "IP_SMTP";
 
         // Get system properties
         Properties properties = System.getProperties();
@@ -272,7 +272,7 @@ class Paged {
             // Set From: header field of the header.
             message.setFrom(new InternetAddress(from));
             message.setHeader("Content-type", "text/html; charset=utf-8");
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("olga.sysa@lamoda.ru"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("admin_2@contoso.com"));
 
             // Set To: header field of the header.
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
@@ -280,16 +280,7 @@ class Paged {
             // Set Subject: header field
             message.setSubject("Daily fishing list", "utf-8");
 
-            // Now set the actual message
-            //String ruMessage = "Просьба произвести плановое изменение пароля для вашей учетной записи. В противном случае вы потеряете доступ к сети Lamoda. " +
-            //        "Пользователи других систем (не Windows) могут изменить пароль, зайдя по ссылке <a href=http://pwd.almoda92.ru>https://pwd.lamoda.ru</a> " +
-            //        "Если вы не можете самостоятельно поменять пароль, обратитесь на hd@lamoda.ru.";
-            //String engMessage ="<br><br>Hello. Please, change your password for you account," +
-            //        " because its expired. Otherwise you will lose your access to the network & services of Lamoda company. Users of not Windows systems (like Mac OS, " +
-            //        "*nix, and other) go to url <a href=http://pwd.almoda92.ru>https://pwd.lamoda.ru</a> If you are unable to change your password, please contact hd@lamoda.ru";
-            //byte ptext[] = ruMessage.getBytes(UTF_16);
-            //String formattedMessage = new String(ptext, UTF_8);
-            //System.out.println(ruMessage);
+           
             message.setContent(msgToAdmin, "text/html; charset=utf-8");
 
             // Send message
