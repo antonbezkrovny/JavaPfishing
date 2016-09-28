@@ -74,7 +74,7 @@ class Paged {
         SearchControls searchCtls = new SearchControls();
 // We start our search from the search base.
 // Be careful! The string needs to be escaped!
-        String searchBase = "OU=Offices,DC=office,DC=lamoda,DC=ru";
+        String searchBase = "OU=Offices,DC=office,DC=contoso,DC=com";
 
 // There are different search scopes:
 // - OBJECT_SCOPE, to search the named object
